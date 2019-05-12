@@ -11,3 +11,6 @@ class Mentor(models.Model):
     last_name = models.CharField(max_length=30, blank=True)
     phone = models.PositiveSmallIntegerField()
     available = models.BooleanField()
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'

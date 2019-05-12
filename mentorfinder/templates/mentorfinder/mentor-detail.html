@@ -1,0 +1,15 @@
+{% extends "mentorfinder/base.html" %}
+
+{% block title %}Add Mentor{% endblock %}
+{% block content %}
+
+<h2>{{mentor.first_name}} {{mentor.last_name}}</h2>
+<p>Email: {{mentor.email}}</p>
+<p>Phone: {{mentor.phone}}</p>
+{% if mentor.available %}
+<p>Available on weekends<p>
+{% else %}
+<p>Unavailable on weekends<p>
+{% endif %}
+
+{% endblock %}

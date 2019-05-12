@@ -19,7 +19,7 @@ class CreateMentorForm(ModelForm):
 
 class FindMentorForm(Form):
     mentor = ModelChoiceField(
-        queryset=Mentor.objects.filter(available=False), empty_label="------------")
+        queryset=Mentor.objects.none(), empty_label="------------")
     available = BooleanField(required=False)
 
     def __init__(self, *args, **kwargs):
@@ -29,10 +29,13 @@ class FindMentorForm(Form):
 
         if 'available' in self.data:
             try:
-                available = self.data.get('available')
-                if available == 'on':
-                    available = True
                 self.fields['mentor'].queryset = Mentor.objects.filter(
-                    available=available)
+                    available=True)
+            except (ValueError, TypeError):
+                pass
+        else:
+            try:
+                self.fields['mentor'].queryset = Mentor.objects.filter(
+                    available=False)
             except (ValueError, TypeError):
                 pass

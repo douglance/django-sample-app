@@ -24,24 +24,33 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
+
+function fetchMentors(){
+	var url = $("#mentorForm").attr("data-mentor-url");
+	var available = $("#id_available").is(':checked');
+	if (available){
+		available = 'True'
+	} else {
+		available = 'False'
+	}
+	$.ajax({
+		url: url,
+		data: {
+			'available': available
+		},
+		success: function (data) {
+			$("#id_mentor").html(data);
+		}
+	})
+}
+
+$(function() {
+	fetchMentors()
+});
+
 $("input:checkbox").change(function () {
-      var url = $("#mentorForm").attr("data-mentor-url");
-			console.log(url)
-      var available = $(this).is(':checked');
-			if (available){
-				available = 'True'
-			} else {
-				available = 'False'
-			}
-      $.ajax({
-        url: url,
-        data: {
-          'available': available
-        },
-        success: function (data) {
-          $("#id_mentor").html(data);
-        }
-      });
-    });
+	fetchMentors()
+});
+
 </script>
 {% endblock %}
